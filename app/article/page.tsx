@@ -1,20 +1,36 @@
-import { db } from '@/lib/db';
-import React from 'react'
+'use client';
 
-const ArticlePage = async () => {
+import { formatDate } from '@/lib/utils';
+import React, { useState, useEffect } from 'react';
+
+const ArticlePage = () => {
+
+  // VERSION 1 :
   // récupérer la liste des articles
-  const articles = await db.article.findMany({
-    orderBy: {
-      createdAt: 'asc'
-    },
-    include: {
-      tags: {
-        include: {
-          tag : true
-        }
-      }
+  // const articles = await db.article.findMany({
+  //   orderBy: {
+  //     createdAt: 'asc'
+  //   },
+  //   include: {
+  //     tags: {
+  //       include: {
+  //         tag : true
+  //       }
+  //     }
+  //   }
+  // });
+
+  // VERSION 2 : Hooks
+  const [articles, setArticles] = useState([]);
+  useEffect(() => {
+    const fetchArticles = async () => {
+      const response = await fetch('/api/article');
+      const data = await response.json();
+      setArticles(data);
     }
-  });
+
+    fetchArticles();
+  }, [])
 
   return (
     <>
@@ -27,7 +43,7 @@ const ArticlePage = async () => {
             <h2 className='text-2xl font-semibold text-emerald-700'>{article.title}</h2>
 
             {/* Date / Heure */}
-            <p>{article.createdAt.toLocaleDateString()} {article.createdAt.toLocaleTimeString()}</p>
+            <p>{formatDate(article.createdAt)}</p>
 
             {/* Liste des tags */}
             {article.tags.map((tagArticle: any) => (
