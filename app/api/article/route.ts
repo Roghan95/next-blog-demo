@@ -3,15 +3,15 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
-         // récupérer la liste des articles
+         // Récupérer la liste des articles
         const articles = await db.article.findMany({
             orderBy: {
-            createdAt: 'asc'
+            createdAt: 'asc' // Tri par date de création croissante
             },
-            include: {
-            tags: {
+            include: { // Inclure les tags 
+            tags: { 
                 include: {
-                tag : true
+                tag : true // Inclure le tag associé à l'article set sur true
                 }
             },
             }
@@ -19,9 +19,10 @@ export async function GET() {
 
         // Retourne une réponse format JSON
         return NextResponse.json(articles)
-
+    
+    // Catch les erreurs et retourne une réponse avec un status 500 
     } catch (error) {
-        console.log("[ARTICLES]", error)
+        console.log("[ARTICLES]", error) // Affiche l'erreur dans le terminal
         return new NextResponse("Internal Error", {status: 500})
     }
 }
