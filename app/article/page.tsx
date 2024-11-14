@@ -1,6 +1,7 @@
 'use client';
 
 import ArticleCard from '@/components/ArticleCard';
+import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
 const ArticlePage = () => {
@@ -36,11 +37,13 @@ const ArticlePage = () => {
   return (
     <>
       <h1  className='text-4xl font-bold mb-6'>Blog</h1>
-      
+
       <div  className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
         {/* Liste des articles */}
         {articles.map((article) => (// On boucle sur les articles avec la méthode map
-          <ArticleCard article={article} />
+          <Link key={article.id} href={`/article/${article.id}`}>
+            <ArticleCard key={article.id} article={article} />
+          </Link>
         ))}
       </div>
     </>

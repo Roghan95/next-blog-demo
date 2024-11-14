@@ -1,8 +1,7 @@
 import React from 'react';
 import { formatDate } from '@/lib/utils'; // On importe la fonction formatDate du dossier lib/utils.ts
-import Button from './Button';
 import Tag from './Tag';
-import Link from 'next/link';
+
 
 interface ArticleCardProps {
   article: ArticleWithTagsAndComments;
