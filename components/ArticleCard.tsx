@@ -19,11 +19,11 @@ const ArticleCard:React.FC<ArticleCardProps> = ({ article }) => {
 
         {/* Liste des tags */}
         <div className='flex flex-wrap gap-2 my-4'>
-        {article.tags.map((tagArticle: any) => ( // On boucle sur les tags de l'article avec la méthode map
+        {article.tags.map((tagArticle) => ( // On boucle sur les tags de l'article avec la méthode map
             // <span className='duration-300 group-hover:bg-pink-600 px-3 py-2 text-xs rounded-full bg-slate-600' key={tagArticle.tag.id}> {/* On utilise la propriété id du tag comme clé */}
             // {tagArticle.tag.name}
             // </span>
-            <Tag text={tagArticle.tag.name} />
+            <Tag key={tagArticle.tag.id} text={tagArticle.tag.name} />
         ))}
         </div>
 

@@ -22,11 +22,11 @@ const ArticlePage = () => {
 
   // VERSION 2 : Avec Hooks
 
-  const [articles, setArticles] = useState([]); // Initialisation du state
+  const [articles, setArticles] = useState<ArticleWithTagsAndComments[]>([]); // Initialisation du state
   useEffect(() => { // Hook d'effet pour appeler l'API
     const fetchArticles = async () => { // Fonction asynchrone
       const response = await fetch('/api/article'); // On appelle l'API en utilisant la route /api/article avec fetch
-      const data = await response.json(); // On récupère les données de la réponse en JSON
+      const data: ArticleWithTagsAndComments[] = await response.json(); // On récupère les données de la réponse en JSON
       setArticles(data); // On met à jour le state avec les données récupérées
     }
 
@@ -36,9 +36,10 @@ const ArticlePage = () => {
   return (
     <>
       <h1  className='text-4xl font-bold mb-6'>Blog</h1>
+      
       <div  className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
         {/* Liste des articles */}
-        {articles.map((article: any) => (// On boucle sur les articles avec la méthode map
+        {articles.map((article) => (// On boucle sur les articles avec la méthode map
           <ArticleCard article={article} />
         ))}
       </div>
